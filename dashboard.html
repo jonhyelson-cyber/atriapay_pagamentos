@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | AtriaPay</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e2a3e; display: flex; min-height: 100vh; }
+    
+    /* Sidebar */
+    .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; }
+    .sidebar-header { padding: 24px; border-bottom: 1px solid #e2e8f0; }
+    .logo { font-size: 1.5rem; font-weight: 800; color: #0b3b5f; }
+    .logo span { color: #0b5e7e; }
+    .nav { padding: 24px 0; flex: 1; }
+    .nav-item { display: block; padding: 12px 24px; color: #5a6e84; text-decoration: none; font-weight: 500; }
+    .nav-item:hover { background: #f1f5f9; color: #0b5e7e; }
+    .nav-item.active { background: #e0f2fe; color: #0b5e7e; border-right: 3px solid #0b5e7e; }
+    .sidebar-footer { padding: 24px; border-top: 1px solid #e2e8f0; }
+    
+    /* Main Content */
+    .main { flex: 1; display: flex; flex-direction: column; }
+    .header { background: white; padding: 20px 32px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+    .content { padding: 32px; flex: 1; }
+    
+    .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-bottom: 24px; }
+    h1 { font-size: 1.8rem; margin-bottom: 8px; color: #0f172a; }
+    p { color: #64748b; }
+    
+    .btn { background: #0b5e7e; color: white; padding: 8px 16px; border-radius: 6px; border: none; font-weight: 500; cursor: pointer; }
+    .btn:hover { background: #094a64; }
+    .btn-outline { background: transparent; color: #ef4444; border: 1px solid #ef4444; }
+    .btn-outline:hover { background: #fee2e2; }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- Loading State -->
+  <div id="loading" style="position: fixed; inset: 0; background: white; display: flex; align-items: center; justify-content: center; z-index: 50;">
+    <h2>Carregando painel...</h2>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">Atria<span>Pay</span></div>
+    </div>
+    <nav class="nav">
+      <a href="#" class="nav-item active">Visão Geral</a>
+      <a href="#" class="nav-item">Minhas Vendas</a>
+      <a href="#" class="nav-item">Clientes</a>
+      <a href="#" class="nav-item">Configurações</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn btn-outline" onclick="logout()" style="width: 100%;">Sair</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="header">
+      <div id="userEmail" style="font-weight: 500;">...</div>
+      <div>ID da Loja: <span id="merchantId" style="font-family: monospace; color: #64748b;">...</span></div>
+    </header>
+    
+    <div class="content">
+      <h1>Bem-vindo ao seu painel</h1>
+      <p style="margin-bottom: 32px;">Sua fundação está pronta. A partir daqui, construiremos suas ferramentas de vendas.</p>
+
+      <div class="card">
+        <h3>Próximos Passos (Em breve)</h3>
+        <ul style="margin-top: 16px; margin-left: 24px; color: #475569; line-height: 1.8;">
+          <li>Configuração de conta bancária de recebimento (Split)</li>
+          <li>Geração de PIX e Boleto</li>
+          <li>Criação de Links de Pagamento Inteligentes</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/auth/me');
+        const data = await res.json();
+        
+        if (!data.user) {
+          window.location.href = '/auth.html';
+          return;
+        }
+
+        document.getElementById('userEmail').textContent = data.user.email;
+        document.getElementById('merchantId').textContent = data.user.merchant_id || 'Não associado';
+        document.getElementById('loading').classList.add('hidden');
+      } catch (e) {
+        window.location.href = '/auth.html';
+      }
+    }
+
+    async function logout() {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      window.location.href = '/auth.html';
+    }
+
+    checkAuth();
+  </script>
+</body>
+</html>

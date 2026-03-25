@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AtriaPay | Receba no mesmo dia com as melhores taxas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #1e2a3e;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 20px 0;
+            border-bottom: 1px solid #eef2f6;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            background-color: rgba(255,255,255,0.95);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0b3b5f 0%, #1e6f9f 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav a {
+            margin-left: 32px;
+            text-decoration: none;
+            color: #1e2a3e;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: #0b5e7e;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #0b5e7e;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.1s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #0b5e7e;
+            color: #0b5e7e;
+        }
+
+        .btn-outline:hover {
+            background: #0b5e7e;
+            color: white;
+        }
+
+        .btn-large {
+            padding: 14px 36px;
+            font-size: 1.1rem;
+        }
+
+        .btn:hover {
+            background: #094a64;
+            transform: translateY(-2px);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 0 64px;
+            background: linear-gradient(135deg, #f9fcff 0%, #ffffff 100%);
+        }
+
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            background: #e6f4ff;
+            color: #0b5e7e;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #0b2b3b;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #4a5b6e;
+            margin-bottom: 32px;
+            max-width: 540px;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            width: 400px;
+            border-radius: 24px;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
+        }
+
+        /* Benefícios */
+        .benefits {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0b2b3b;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: #5a6e84;
+            max-width: 700px;
+            margin: 0 auto 48px;
+            font-size: 1.1rem;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border: 1px solid #eef2f6;
+            flex: 1;
+            min-width: 240px;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #cde3f0;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #0b5e7e;
+        }
+
+        .card p {
+            color: #5a6e84;
+        }
+
+        /* Tabela de preços */
+        .pricing {
+            background: #f8fafc;
+            padding: 80px 0;
+        }
+
+        .pricing-table {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            border-bottom: 1px solid #eef2f6;
+        }
+
+        .pricing-row:last-child {
+            border-bottom: none;
+        }
+
+        .method {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #1e2a3e;
+        }
+
+        .rate {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0b5e7e;
+        }
+
+        .rate small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #5a6e84;
+        }
+
+        .pill {
+            background: #e6f4ff;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #0b5e7e;
+        }
+
+        .simulator {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .sim-form {
+            max-width: 900px;
+            margin: 0 auto 24px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1e2a3e;
+        }
+
+        .input, .select {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input:focus, .select:focus {
+            border-color: #0b5e7e;
+            box-shadow: 0 0 0 3px rgba(11,94,126,0.15);
+        }
+
+        .result-note {
+            text-align: center;
+            color: #5a6e84;
+            margin-top: 12px;
+            font-size: 0.95rem;
+        }
+
+        /* Como funciona */
+        .how-it-works {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: #0b5e7e;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .step h4 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        /* Recursos técnicos */
+        .tech {
+            background: #f8fafc;
+            padding: 80px 0;
+        }
+
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            margin-top: 48px;
+        }
+
+        .tech-item {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            border: 1px solid #eef2f6;
+        }
+
+        .tech-item h4 {
+            font-size: 1.2rem;
+            margin: 16px 0 8px;
+            color: #0b5e7e;
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, #0b3b5f 0%, #0b5e7e 100%);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+
+        .cta .btn-white {
+            background: white;
+            color: #0b5e7e;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0b2b3b;
+            color: #b9d0e0;
+            padding: 48px 0 24px;
+        }
+
+        .footer a {
+            color: #b9d0e0;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .footer-logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid #255c77;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .pricing-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .nav {
+                display: none;
+            }
+            .hero-grid {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .section-sub {
+                font-size: 1rem;
+            }
+            .pricing-row {
+                padding: 16px;
+            }
+            .sim-form {
+                padding: 16px;
+            }
+            .rate {
+                font-size: 1.3rem;
+            }
+            .btn-large {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <div class="logo">Atria<span style="color:#0b5e7e;">Pay</span></div>
+            <div class="nav">
+                <a href="#beneficios">Benefícios</a>
+                <a href="#simulador">Simulador</a>
+                <a href="#precos">Preços</a>
+                <a href="#como-funciona">Como funciona</a>
+                <a href="#recursos">Recursos</a>
+                <a href="/auth.html" class="btn-outline btn" style="margin-left: 32px;">Entrar</a>
+                <a href="/auth.html" class="btn" style="margin-left: 16px;">Criar conta</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge">⚡ Recebimento D0 no cartão</div>
+                <h1>Venda online com as melhores taxas e receba no mesmo dia</h1>
+                <p>PIX, cartão de crédito e boleto com taxas justas. Seu dinheiro cai direto na sua conta — sem burocracia, sem surpresas.</p>
+                <a href="/auth.html" class="btn btn-large">Começar agora →</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://placehold.co/500x400/eef2f6/0b5e7e?text=Checkout+moderno" alt="Checkout personalizado">
+            </div>
+        </div>
+    </section>
+
+    <section id="beneficios" class="benefits">
+        <div class="container">
+            <h2 class="section-title">Por que escolher a AtriaPay?</h2>
+            <p class="section-sub">Você vende, nós cuidamos da tecnologia. Recebimento rápido, taxas competitivas e total transparência.</p>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Recebimento D0</h3>
+                    <p>Cartão de crédito cai na conta no mesmo dia. PIX na hora. Boleto em até 3 dias úteis.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💳</div>
+                    <h3>Taxas que cabem no bolso</h3>
+                    <p>PIX 1,89% • Cartão 6,99% • Boleto R$ 2,99. Tudo incluso, sem mensalidade.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔗</div>
+                    <h3>Links de pagamento inteligentes</h3>
+                    <p>Crie links personalizados em segundos. Compartilhe por WhatsApp, redes sociais ou e-mail.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Dashboard completo</h3>
+                    <p>Acompanhe vendas, extratos e recebimentos em tempo real. Tudo organizado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="precos" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Taxas transparentes</h2>
+            <p class="section-sub">Você paga apenas quando vende. Sem mensalidades, sem letras miúdas.</p>
+            <div class="pricing-table">
+                <div class="pricing-row">
+                    <div class="method">PIX</div>
+                    <div class="rate">1,89% <small>sobre o valor</small></div>
+                    <div class="pill">Recebimento na hora</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="method">Cartão de crédito (D0)</div>
+                    <div class="rate">6,99% <small>sobre o valor</small></div>
+                    <div class="pill">Recebimento no mesmo dia</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="method">Boleto bancário</div>
+                    <div class="rate">R$ 2,99 <small>fixo</small></div>
+                    <div class="pill">Recebimento D+3</div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 32px; font-size: 0.9rem; color: #5a6e84;">*Os valores já incluem todas as taxas de processamento. Você recebe o líquido automaticamente.</p>
+        </div>
+    </section>
+
+    <section id="simulador" class="simulator">
+        <div class="container">
+            <h2 class="section-title">Simulador de taxas</h2>
+            <p class="section-sub">Informe o valor da venda e veja quanto você recebe em cada método.</p>
+            <div class="sim-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sim-valor">Valor da venda</label>
+                        <input id="sim-valor" class="input" type="text" placeholder="R$ 0,00" inputmode="decimal" autocomplete="off" enterkeyhint="done">
+                    </div>
+                    <div class="form-group">
+                        <label for="sim-metodo">Método de pagamento</label>
+                        <select id="sim-metodo" class="select">
+                            <option value="pix">PIX</option>
+                            <option value="cartao">Cartão de crédito (D0)</option>
+                            <option value="boleto">Boleto bancário</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="pricing-table" aria-live="polite">
+                <div class="pricing-row">
+                    <div class="method">Taxa</div>
+                    <div class="rate" id="sim-taxa">R$ 0,00</div>
+                    <div class="pill" id="sim-receb">Recebimento</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="method">Valor bruto</div>
+                    <div class="rate" id="sim-bruto">R$ 0,00</div>
+                    <div></div>
+                </div>
+                <div class="pricing-row">
+                    <div class="method">Valor líquido</div>
+                    <div class="rate" id="sim-liquido">R$ 0,00</div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="result-note">Cálculo baseado nas taxas atuais: PIX 1,89%, Cartão 6,99% e Boleto R$ 2,99.</div>
+        </div>
+    </section>
+
+    <section id="recursos" class="tech">
+        <div class="container">
+            <h2 class="section-title">Recursos profissionais para você vender mais</h2>
+            <p class="section-sub">Tecnologia de ponta para você focar no que importa: suas vendas.</p>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="card-icon">📲</div>
+                    <h4>Checkout personalizado</h4>
+                    <p>Pague direto no seu site, com a sua cara. Experiência de compra fluida.</p>
+                </div>
+                <div class="tech-item">
+                    <div class="card-icon">🔄</div>
+                    <h4>Assinaturas e recorrência</h4>
+                    <p>Crie planos mensais, anuais ou sob demanda. Receba automaticamente.</p>
+                </div>
+                <div class="tech-item">
+                    <div class="card-icon">💸</div>
+                    <h4>Split automático</h4>
+                    <p>Seu markup é retido automaticamente. O vendedor recebe direto, sem intermediários.</p>
+                </div>
+                <div class="tech-item">
+                    <div class="card-icon">🔔</div>
+                    <h4>Webhooks em tempo real</h4>
+                    <p>Acompanhe o status de cada venda instantaneamente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="como-funciona" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Como funciona?</h2>
+            <p class="section-sub">Três passos para começar a vender com recebimento rápido</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Cadastre-se</h4>
+                    <p>Crie sua conta gratuitamente. Informe seus dados e a conta bancária onde quer receber.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Crie seu link de pagamento</h4>
+                    <p>Defina valor, título e escolha os métodos de pagamento que deseja oferecer.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Compartilhe e receba</h4>
+                    <p>Envie o link para seu cliente. O dinheiro cai direto na sua conta no mesmo dia (cartão) ou na hora (PIX).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cadastro" class="cta">
+        <div class="container">
+            <h2>Pronto para receber no mesmo dia?</h2>
+            <p>Junte-se a milhares de vendedores que já aceleraram seus recebimentos com a AtriaPay.</p>
+            <a href="/auth.html" class="btn btn-large btn-white">Criar minha conta gratuita</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">AtriaPay</div>
+                    <p>Pagamentos simples, rápidos e justos.</p>
+                </div>
+                <div>
+                    <h4>Produto</h4>
+                    <p><a href="#beneficios">Benefícios</a></p>
+                    <p><a href="#precos">Preços</a></p>
+                    <p><a href="#recursos">Recursos</a></p>
+                </div>
+                <div>
+                    <h4>Suporte</h4>
+                    <p><a href="#">Central de ajuda</a></p>
+                    <p><a href="#">Fale conosco</a></p>
+                </div>
+                <div>
+                    <h4>Legal</h4>
+                    <p><a href="#">Termos de uso</a></p>
+                    <p><a href="#">Política de privacidade</a></p>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 AtriaPay. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+    <script>
+        var inputValor = document.getElementById('sim-valor');
+        var selectMetodo = document.getElementById('sim-metodo');
+        var elTaxa = document.getElementById('sim-taxa');
+        var elBruto = document.getElementById('sim-bruto');
+        var elLiquido = document.getElementById('sim-liquido');
+        var elReceb = document.getElementById('sim-receb');
+        var nf = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+        function parseValor(v){if(!v)return 0;var s=String(v).replace(/\s/g,'').replace(/\./g,'').replace(',', '.').replace(/[^\d.]/g,'');var n=parseFloat(s);if(isNaN(n)||n<0)return 0;return n;}
+        function calc(){var valor=parseValor(inputValor.value);var taxa=0;var receb='';var metodo=selectMetodo.value;if(metodo==='pix'){taxa=valor*0.0189;receb='Na hora';}else if(metodo==='cartao'){taxa=valor*0.0699;receb='No mesmo dia';}else{taxa=2.99;receb='D+3';if(taxa>valor)taxa=valor;}var liquido=valor-taxa;if(liquido<0)liquido=0;elTaxa.textContent=nf.format(taxa);elBruto.textContent=nf.format(valor);elLiquido.textContent=nf.format(liquido);elReceb.textContent=receb;}
+        function formatOnBlur(){var valor=parseValor(inputValor.value);inputValor.value=valor?nf.format(valor):'';calc();}
+        inputValor.addEventListener('input', calc);
+        inputValor.addEventListener('blur', formatOnBlur);
+        selectMetodo.addEventListener('change', calc);
+        inputValor.value='';
+        selectMetodo.value='pix';
+        calc();
+    </script>
+</body>
+</html>

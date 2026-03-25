@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar | AtriaPay</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e2a3e; display: flex; flex-direction: column; min-height: 100vh; align-items: center; justify-content: center; }
+    .container { width: 100%; max-width: 400px; padding: 24px; }
+    .logo { text-align: center; font-size: 2rem; font-weight: 800; color: #0b3b5f; margin-bottom: 32px; }
+    .logo span { color: #0b5e7e; }
+    .card { background: white; padding: 32px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+    .tabs { display: flex; margin-bottom: 24px; border-bottom: 2px solid #e2e8f0; }
+    .tab { flex: 1; text-align: center; padding: 12px; font-weight: 600; cursor: pointer; color: #5a6e84; }
+    .tab.active { color: #0b5e7e; border-bottom: 2px solid #0b5e7e; margin-bottom: -2px; }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
+    input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: inherit; font-size: 1rem; outline: none; }
+    input:focus { border-color: #0b5e7e; box-shadow: 0 0 0 3px rgba(11,94,126,0.15); }
+    .btn { display: block; width: 100%; background: #0b5e7e; color: white; padding: 14px; border-radius: 8px; border: none; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 24px; }
+    .btn:hover { background: #094a64; }
+    .error { color: #e11d48; font-size: 0.9rem; margin-top: 12px; display: none; text-align: center; }
+    .back-link { display: block; text-align: center; margin-top: 24px; color: #0b5e7e; text-decoration: none; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">Atria<span>Pay</span></div>
+    
+    <div class="card">
+      <div class="tabs">
+        <div class="tab active" id="tabLogin" onclick="setMode('login')">Entrar</div>
+        <div class="tab" id="tabSignup" onclick="setMode('signup')">Criar conta</div>
+      </div>
+
+      <div id="formSignup" style="display: none;">
+        <div class="form-group">
+          <label for="name">Nome da Loja</label>
+          <input type="text" id="name" placeholder="Sua Loja">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" placeholder="seu@email.com">
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" placeholder="••••••••">
+      </div>
+
+      <div id="errorMsg" class="error">Mensagem de erro</div>
+
+      <button class="btn" id="submitBtn" onclick="submitForm()">Entrar</button>
+    </div>
+
+    <a href="/" class="back-link">← Voltar ao site</a>
+  </div>
+
+  <script>
+    let mode = 'login';
+
+    function setMode(newMode) {
+      mode = newMode;
+      document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
+      document.getElementById('tabSignup').classList.toggle('active', mode === 'signup');
+      document.getElementById('formSignup').style.display = mode === 'signup' ? 'block' : 'none';
+      document.getElementById('submitBtn').textContent = mode === 'login' ? 'Entrar' : 'Criar Conta';
+      document.getElementById('errorMsg').style.display = 'none';
+    }
+
+    async function submitForm() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const name = document.getElementById('name').value;
+      const btn = document.getElementById('submitBtn');
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (!email || !password) {
+        errorMsg.textContent = 'Preencha todos os campos.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Aguarde...';
+      errorMsg.style.display = 'none';
+
+      const url = mode === 'login' ? '/api/auth/login' : '/api/auth/signup';
+        console.log("Chamando a URL:", url); // DEBUG
+        const body = mode === 'login' ? { email, password } : { email, password, name };
+
+        try {
+          const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        
+        console.log("Status da resposta:", res.status); // DEBUG
+
+        if (res.ok) {
+          window.location.href = '/dashboard.html';
+        } else {
+          const data = await res.json();
+          errorMsg.textContent = data.error === 'invalid_credentials' ? 'E-mail ou senha incorretos.' : 
+                                 data.error === 'email_in_use' ? 'Este e-mail já está em uso.' : 'Erro ao processar.';
+          errorMsg.style.display = 'block';
+        }
+      } catch (e) {
+        errorMsg.textContent = 'Erro de conexão com o servidor.';
+        errorMsg.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = mode === 'login' ? 'Entrar' : 'Criar Conta';
+      }
+    }
+  </script>
+</body>
+</html>
